@@ -45,6 +45,11 @@
 
 		</div> <!-- End of top -->
 
+		<nav class="pagination" role="navigation" aria-label="pagination">
+		  <ul class="pagination-list is-flex ">
+		  </ul>
+		</nav>
+
 	</div> <!-- End of container -->
 
 	<template id="movie-info-template">
@@ -56,7 +61,7 @@
 
 	<template id="movie-info-body-template">
 		<div class="info-body-top columns">
-			<div class="movie-img-wrapper column">
+			<div class="movie-img-wrapper column has-text-centered">
 				<img  class="movie-img" src="https://picsum.photos/id/870/170/250" width="170" height="250" alt="Movie poster">
 			</div> <!-- End of movie-img-wrapper -->
 
@@ -72,6 +77,12 @@
 			Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Nobis necessitatibus 
 		</div>
 	</template><!-- End of movie-info-template -->
+
+	<template id="pagination-item">
+		<li>
+      <a class="pagination-link" aria-label="Goto page 2">2</a>
+    </li>
+	</template> <!-- End of pagination-item -->
 
 	<script src="js/script.js"></script>
 </body>

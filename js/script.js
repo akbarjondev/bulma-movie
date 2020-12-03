@@ -1,3 +1,6 @@
+// API KEY
+var API_KEY = '2ae0cd9a';
+
 // variables
 var elForm = document.querySelector('.form');
 var elSubmitButton = elForm.querySelector('.button');
@@ -8,12 +11,15 @@ var elSearchInput = elForm.querySelector('.input');
 var elMovies = document.querySelector('.movies');
 var elInfoBody = document.querySelector('.info-body');
 
+// pagination
+var elPagination = document.querySelector('.pagination-list');
+
 // template
 var movieTemplate = document.querySelector('#movie-info-template').content;
 var movieInfoBodyTemplate = document.querySelector('#movie-info-body-template').content;
+var paginationTemplate = document.querySelector('#pagination-item').content;
 
-// API KEY
-var API_KEY = '2ae0cd9a';
+// === FUNCTIONS === //
 
 // render movies to HTML
 var renderMovies = function(array) {
@@ -33,6 +39,24 @@ var renderMovies = function(array) {
 	elMovies.appendChild(movieFragmentBox);
 };
 
+//paginate
+var paginate = function(results) {
+	var movieFragmentBox = document.createDocumentFragment();
+	var numberOfPages = Math.ceil(results / 10);
+
+	for(var i = 1; i <= results; i++) {
+		var newPaginationEl = paginationTemplate.cloneNode(true);
+
+		newPaginationEl.querySelector('.pagination-link').dataset.pageId = i;	
+		newPaginationEl.querySelector('.pagination-link').textContent = i;
+
+		movieFragmentBox.appendChild(newPaginationEl);	
+	}
+
+	elPagination.innerHTML = '';
+	elPagination.appendChild(movieFragmentBox);
+};
+
 // listen to form
 elForm.addEventListener('submit', (evt) => {
 	evt.preventDefault();
@@ -44,13 +68,14 @@ elForm.addEventListener('submit', (evt) => {
 	fetch(MAIN_URL).then((response) => {
 		return response.json();
 	}).then((data) => {
-		console.log(data.Search);
+		paginate(Number(data.totalResults));
 		renderMovies(data.Search);
 		
 		elSubmitButton.classList.remove('is-loading');
 	});
 });
 
+// render movie info
 var renderInfo = function(data) {
 	var movieFragmentBox = document.createDocumentFragment();
 
