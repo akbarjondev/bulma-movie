@@ -63,6 +63,7 @@ var renderInfo = function(data) {
 	newInfoBody.querySelector('.movie-year').textContent = data.Year;
 	newInfoBody.querySelector('.movie-genre').textContent = data.Genre;
 	newInfoBody.querySelector('.movie-rating').textContent = data.imdbRating;
+	newInfoBody.querySelector('.movie-plot').textContent = data.Plot;
 
 	movieFragmentBox.appendChild(newInfoBody);
 
