@@ -6,9 +6,11 @@ var elSearchInput = elForm.querySelector('.input');
 
 // movies <ul>
 var elMovies = document.querySelector('.movies');
+var elInfoBody = document.querySelector('.info-body');
 
 // template
 var movieTemplate = document.querySelector('#movie-info-template').content;
+var movieInfoBodyTemplate = document.querySelector('#movie-info-body-template').content;
 
 // API KEY
 var API_KEY = '2ae0cd9a';
@@ -16,7 +18,6 @@ var API_KEY = '2ae0cd9a';
 // render movies to HTML
 var renderMovies = function(array) {
 	var movieFragmentBox = document.createDocumentFragment();
-
 
 	array.forEach((movie) => {
 		var newMovieEl = movieTemplate.cloneNode(true);
@@ -50,11 +51,30 @@ elForm.addEventListener('submit', (evt) => {
 	});
 });
 
+var renderInfo = function(data) {
+	var movieFragmentBox = document.createDocumentFragment();
+
+	var newInfoBody = movieInfoBodyTemplate.cloneNode(true);
+
+	newInfoBody.querySelector('.movie-img').src = data.Poster;	
+	newInfoBody.querySelector('.movie-img').title = data.Title;	
+	newInfoBody.querySelector('.movie-img').alt = data.Title;	
+	newInfoBody.querySelector('.movie-title').textContent = data.Title;
+	newInfoBody.querySelector('.movie-year').textContent = data.Year;
+	newInfoBody.querySelector('.movie-genre').textContent = data.Genre;
+	newInfoBody.querySelector('.movie-rating').textContent = data.imdbRating;
+
+	movieFragmentBox.appendChild(newInfoBody);
+
+	elInfoBody.innerHTML = '';
+	elInfoBody.appendChild(movieFragmentBox);
+};
+
 // event delegation
 elMovies.addEventListener('click', (evt) => {
 	if(evt.target.matches('.movie__button')) {
 		var movieID = evt.target.closest('.movie').dataset.id;
-		var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}`;
+		var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}&plot=full`;
 		
 		evt.target.classList.add('is-loading');
 
@@ -62,7 +82,7 @@ elMovies.addEventListener('click', (evt) => {
 			return response.json();
 		}).then((data) => {
 			evt.target.classList.remove('is-loading');
-			console.log(data);
+			renderInfo(data);
 		});
 	}
 });

@@ -39,22 +39,10 @@
 				</div>
 			</div>
 			
-			<div class="column left-column p-5">
-				<div class="columns">
-					
-					<div class="column movie__img-wrapper">
-						<img  class="movie__img" src="https://picsum.photos/id/870/170/250" width="170" height="250" alt="Movie poster">
-					</div>
+			<div class="info-body column left-column p-5">
+				
+			</div> <!-- End of info-body -->
 
-					<div class="column movie__info">
-
-					</div>
-				</div>
-
-				<div class="columns ">
-					Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Nobis necessitatibus 
-				</div>
-			</div> <!-- End of left-column -->
 		</div> <!-- End of top -->
 
 	</div> <!-- End of container -->
@@ -64,7 +52,27 @@
 			<span class="movie__name is-flex-grow-1 mr-3">Avangers Lorem ipsum dolor sit auscipit culpa dolorem, ab reprehenderit fugit minima qui voluptates atque ipsam eligendi, pariatur illo cupiditate rerum numquam repellat sequi.</span>
 			<button class="movie__button button has-background-primary has-text-white" type="button">Info</button>
 		</li>
-	</template>
+	</template><!-- End of movie-info-template -->
+
+	<template id="movie-info-body-template">
+		<div class="info-body-top columns">
+			<div class="movie-img-wrapper column">
+				<img  class="movie-img" src="https://picsum.photos/id/870/170/250" width="170" height="250" alt="Movie poster">
+			</div> <!-- End of movie-img-wrapper -->
+
+			<div class="movie-info column">
+				<h5 class="movie-title title">The Fast and the Furious</h5>
+				<div class="movie-year">2013</div>
+				<div class="movie-genre">Action, Adventure, Thriller</div>
+				<div class="movie-rating">7.1</div>
+			</div> <!-- End of movie-info -->
+		</div> <!-- End of info-body-top -->
+
+		<div class="movie-plot columns">
+			Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Nobis necessitatibus 
+		</div>
+	</template><!-- End of movie-info-template -->
+
 	<script src="js/script.js"></script>
 </body>
 </html>
