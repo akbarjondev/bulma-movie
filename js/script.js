@@ -73,7 +73,7 @@ elForm.addEventListener('submit', (evt) => {
 		alert('Type in!');
 	}
 
-	var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}`;
+	var MAIN_URL = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}`;
 	
 	fetch(MAIN_URL).then((response) => {
 		return response.json();
@@ -111,7 +111,7 @@ var renderInfo = function(data) {
 elMovies.addEventListener('click', (evt) => {
 	if(evt.target.matches('.movie__button')) {
 		var movieID = evt.target.closest('.movie').dataset.id;
-		var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}&plot=full`;
+		var MAIN_URL = `https://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}&plot=full`;
 		
 		evt.target.classList.add('is-loading');
 
@@ -129,7 +129,7 @@ elPagination.addEventListener('click', (evt) => {
 	var pageId = Number(evt.target.dataset.pageId);
 	
 	var searchQuery = elSearchInput.value.trim();
-	var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&page=${pageId}`;
+	var MAIN_URL = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&page=${pageId}`;
 	
 	fetch(MAIN_URL).then((response) => {
 		return response.json();
