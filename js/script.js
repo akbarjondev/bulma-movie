@@ -1,7 +1,8 @@
 // variables
 var elForm = document.querySelector('.form');
-var elHiddenInput = document.querySelector('.hidden-input', elForm);
-var elSearchInput = document.querySelector('.input', elForm);
+var elSubmitButton = elForm.querySelector('.button');
+var elHiddenInput = elForm.querySelector('.hidden-input');
+var elSearchInput = elForm.querySelector('.input');
 
 // movies <ul>
 var elMovies = document.querySelector('.movies');
@@ -19,7 +20,7 @@ var renderMovies = function(array) {
 
 	array.forEach((movie) => {
 		var newMovieEl = movieTemplate.cloneNode(true);
-		
+
 		newMovieEl.querySelector('.movie').title = movie.Title;
 		newMovieEl.querySelector('.movie').dataset.id = movie.imdbID;
 		newMovieEl.querySelector('.movie__name').textContent = movie.Title;
@@ -27,11 +28,14 @@ var renderMovies = function(array) {
 		movieFragmentBox.appendChild(newMovieEl);
 	});
 
+	elMovies.innerHTML = '';
 	elMovies.appendChild(movieFragmentBox);
 };
 
+// listen to form
 elForm.addEventListener('submit', (evt) => {
 	evt.preventDefault();
+	elSubmitButton.classList.add('is-loading');
 
 	var searchQuery = elSearchInput.value.trim();
 	var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}`;
@@ -39,8 +43,26 @@ elForm.addEventListener('submit', (evt) => {
 	fetch(MAIN_URL).then((response) => {
 		return response.json();
 	}).then((data) => {
-		var moviesArray = data.Search;
-
-		renderMovies(moviesArray);
+		console.log(data.Search);
+		renderMovies(data.Search);
+		
+		elSubmitButton.classList.remove('is-loading');
 	});
+});
+
+// event delegation
+elMovies.addEventListener('click', (evt) => {
+	if(evt.target.matches('.movie__button')) {
+		var movieID = evt.target.closest('.movie').dataset.id;
+		var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${movieID}`;
+		
+		evt.target.classList.add('is-loading');
+
+		fetch(MAIN_URL).then((response) => {
+			return response.json();
+		}).then((data) => {
+			evt.target.classList.remove('is-loading');
+			console.log(data);
+		});
+	}
 });
