@@ -1,0 +1,13 @@
+.movie__name {
+	width: 150px;
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.movie__img {
+	width: 170px;
+	height: 250px;
+	object-fit: cover;
+}

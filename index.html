@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bulma movie</title>
+	<link rel="stylesheet" href="node_modules/bulma/css/bulma.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="header navbar is-flex is-justify-content-center">
+		<a class="title logo my-4" href="index.html">Bulma movies</a>
+	</div>
+
+	<div class="container">
+		<div class="columns">
+			<div class="column">
+				<form 
+					class="form is-flex" 
+					method="GET" 
+					action="http://www.omdbapi.com/">
+					<input type="hidden" name="apikey" value="2ae0cd9a">
+					<div class="field mr-3">
+						<div class="control">
+							<input class="input" type="search" name="s" placeholder="Find a movie">
+						</div>
+					</div>
+
+					<button class="button has-background-success has-text-white">Submit</button>
+				</form>
+
+				<div class="columns mt-5">
+					<div class="column">
+						<ul class="movies panel-list">
+							
+						</ul> <!-- End of movies -->
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="column left-column p-5">
+				<div class="columns">
+					
+					<div class="column movie__img-wrapper">
+						<img  class="movie__img" src="https://picsum.photos/id/870/500" width="170" height="250" alt="Movie poster">
+					</div>
+
+					<div class="column movie__info">
+
+					</div>
+				</div>
+
+				<div class="columns">
+					Lorem ipsum dolor, sit amet, consectetur adipisicing elit. Nobis necessitatibus repudiandae possimus id at autem veritatis ullam. Laborum, soluta consequatur voluptatem perspiciatis quasi aut dolores odio numquam atque hic deleniti beatae sint molestias aliquam dolorum saepe nobis harum id, facilis, dolorem asperiores inventore ratione ipsam mollitia? Amet accusantium molestiae maxime!
+				</div>
+			</div> <!-- End of left-column -->
+		</div> <!-- End of top -->
+
+	</div> <!-- End of container -->
+
+	<template id="movie-info-template">
+		<li class="movie mb-1 is-flex is-bordered panel p-2 is-align-items-center">
+			<span class="movie__name is-flex-grow-1 mr-3">Avangers Lorem ipsum dolor sit auscipit culpa dolorem, ab reprehenderit fugit minima qui voluptates atque ipsam eligendi, pariatur illo cupiditate rerum numquam repellat sequi.</span>
+			<button class="button has-background-primary has-text-white" type="button">Info</button>
+		</li>
+	</template>
+	<script src="js/script.js"></script>
+</body>
+</html>
