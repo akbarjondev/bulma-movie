@@ -40,12 +40,17 @@ var renderMovies = function(array) {
 };
 
 //paginate
-var paginate = function(results) {
+var paginate = function(results, isCurrent = 1) {
+	document.querySelector('.number-of-movies').textContent = `{${results}}`
+
 	var movieFragmentBox = document.createDocumentFragment();
 	var numberOfPages = Math.ceil(results / 10);
 
-	for(var i = 1; i <= results; i++) {
+	for(var i = 1; i <= numberOfPages; i++) {
 		var newPaginationEl = paginationTemplate.cloneNode(true);
+		if(i === isCurrent) {
+			newPaginationEl.querySelector('.pagination-link').classList.add('is-current');	
+		}
 
 		newPaginationEl.querySelector('.pagination-link').dataset.pageId = i;	
 		newPaginationEl.querySelector('.pagination-link').textContent = i;
@@ -63,16 +68,22 @@ elForm.addEventListener('submit', (evt) => {
 	elSubmitButton.classList.add('is-loading');
 
 	var searchQuery = elSearchInput.value.trim();
+	
+	if(!Boolean(searchQuery)) {
+		alert('Type in!');
+	}
+
 	var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}`;
 	
 	fetch(MAIN_URL).then((response) => {
 		return response.json();
 	}).then((data) => {
-		paginate(Number(data.totalResults));
+		paginate(Number(data.totalResults, 1));
 		renderMovies(data.Search);
 		
 		elSubmitButton.classList.remove('is-loading');
 	});
+
 });
 
 // render movie info
@@ -111,4 +122,19 @@ elMovies.addEventListener('click', (evt) => {
 			renderInfo(data);
 		});
 	}
+});
+
+// pagination wrapper event delegation
+elPagination.addEventListener('click', (evt) => {
+	var pageId = Number(evt.target.dataset.pageId);
+	
+	var searchQuery = elSearchInput.value.trim();
+	var MAIN_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&page=${pageId}`;
+	
+	fetch(MAIN_URL).then((response) => {
+		return response.json();
+	}).then((data) => {
+		paginate(Number(data.totalResults), pageId);
+		renderMovies(data.Search);
+	});
 });
